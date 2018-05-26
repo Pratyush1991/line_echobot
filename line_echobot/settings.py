@@ -16,6 +16,7 @@ import os
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
+
 def get_env_variable(var_name):
     try:
         return os.environ[var_name]
@@ -36,9 +37,6 @@ except ImportError:
     SECRET_KEY=secret
     LINE_CHANNEL_ACCESS_TOKEN = get_env_variable('LINE_CHANNEL_ACCESS_TOKEN')
     LINE_CHANNEL_SECRET = get_env_variable('LINE_CHANNEL_SECRET')
-
-
-
 
 
 # Quick-start development settings - unsuitable for production
