@@ -20,5 +20,5 @@ import echobot
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^echobot/', include('echobot.urls')),
+    url(r'^agribot/', include('echobot.urls')),
 ]
