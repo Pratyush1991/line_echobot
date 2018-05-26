@@ -13,6 +13,9 @@ https://docs.djangoproject.com/en/1.10/ref/settings/
 import os
 
 
+# Build paths inside the project like this: os.path.join(BASE_DIR, ...)
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
 def get_env_variable(var_name):
     try:
         return os.environ[var_name]
@@ -23,13 +26,19 @@ def get_env_variable(var_name):
 try:
     from .settings_secret import *
 except ImportError:
-    SECRET_KEY = get_env_variable('SECRET_KEY')
+    from django.utils.crypto import get_random_string
+
+    current_dir = os.path.abspath(os.path.dirname(__file__))
+    chars = 'abcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*(-_=+)'
+    secret = get_random_string(50, chars)
+    with open(os.path.join(current_dir, 'secret_key.py'), 'w') as f:
+        f.write("SECRET_KEY='{}'".format(secret))
+    SECRET_KEY=secret
     LINE_CHANNEL_ACCESS_TOKEN = get_env_variable('LINE_CHANNEL_ACCESS_TOKEN')
     LINE_CHANNEL_SECRET = get_env_variable('LINE_CHANNEL_SECRET')
 
 
-# Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
 
 
 # Quick-start development settings - unsuitable for production
